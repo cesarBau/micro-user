@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Usuario;
 import com.example.demo.service.IUsuarioService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -39,14 +40,14 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Usuario getUserById(@PathVariable String id) {
-        return iusuarioService.getUserById(id);
+        return iusuarioService.getUserByIdusuario(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void updateUserById(@PathVariable String id, @RequestBody Usuario usuario){
-        iusuarioService.updateUserById(usuario, id);
+    public Usuario updateUserById(@PathVariable String id, @RequestBody Usuario usuario){
+        return iusuarioService.updateUserById(usuario, id);
     }
     
 }

@@ -6,4 +6,6 @@ import com.example.demo.entity.Usuario;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, String>{
 
+    Usuario findByIdusuario(String idusuario);
+
 }
