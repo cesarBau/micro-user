@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/user")
 public class UsuarioController {
 
+    private static Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+
     @Autowired
     private final IUsuarioService iusuarioService;
 
@@ -39,8 +43,18 @@ public class UsuarioController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Usuario getUserById(@PathVariable String id) {
+    public Usuario getUserByIdusuario(@PathVariable String id) {
+        logger.info("Consume controller getUserByIdusuario");
         return iusuarioService.getUserByIdusuario(id);
+    }
+
+    @GetMapping("/idproveedor/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Usuario getUserByIdproveedor(@PathVariable String id) {
+        logger.info("Consume controller getUserByIdproveedor");
+        logger.info(id);
+        return iusuarioService.getUserById(id);
     }
 
     @PutMapping("/{id}")
