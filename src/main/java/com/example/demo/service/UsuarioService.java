@@ -26,11 +26,13 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario createUser(Usuario usuario) {
+        logger.info("Consume service createUser");
         return usuarioRepository.save(usuario);
     }
 
     @Override
     public Usuario getUserById(String id) {
+        logger.info("Consume service getUserById");
         try {
             Optional<Usuario> process = usuarioRepository.findById(id);
             Usuario result =  process.get();
@@ -43,6 +45,7 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario updateUserById(Usuario usuario, String id) {
+        logger.info("Consume service updateUserById");
         LocalDateTime now = LocalDateTime.now();
         try {
             Optional<Usuario> consult = usuarioRepository.findById(id);
@@ -59,6 +62,7 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario getUserByIdusuario(String idusuario) {
+        logger.info("Consume service getUserByIdusuario");
         Usuario consult = usuarioRepository.findByIdusuario(idusuario);
         if (consult == null){
             logger.info(String.format("El usuario /%s no existe", idusuario));

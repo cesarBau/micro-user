@@ -27,6 +27,7 @@ public class SuscripcionService implements ISuscripcionService {
 
     @Override
     public Suscripcion createSuscription(Suscripcion suscripcion) {
+        logger.info("Consume service createSuscription");
         try {
             return suscripcionRepository.save(suscripcion);
         } catch (Exception e) {
@@ -46,7 +47,7 @@ public class SuscripcionService implements ISuscripcionService {
             return result;
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "User not found", e);
+            HttpStatus.NOT_FOUND, "Suscription not found", e);
         }
     }
 
@@ -58,13 +59,14 @@ public class SuscripcionService implements ISuscripcionService {
             return result;
         } else {
             throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "User not found", null);
+                HttpStatus.NOT_FOUND, "Suscription not found", null);
         }
         
     }
 
     @Override
     public Suscripcion cancelSuscription(String idproveedor) {
+        logger.info("Consume service cancelSuscription");
         LocalDateTime now = LocalDateTime.now();
         Suscripcion consult = suscripcionRepository.findByIdproveedor(idproveedor);
         EstatusSuscripcion cancel = new EstatusSuscripcion(2,"cancelado");
@@ -78,6 +80,7 @@ public class SuscripcionService implements ISuscripcionService {
 
     @Override
     public Suscripcion updateSuscripcioon(String idproveedor) {
+        logger.info("Consume service updateSuscripcioon");
         LocalDateTime now = LocalDateTime.now();
         Suscripcion consult = suscripcionRepository.findByIdproveedor(idproveedor);
         EstatusSuscripcion activated = new EstatusSuscripcion(1,"activo");
