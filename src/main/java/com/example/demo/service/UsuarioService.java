@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.entity.EstatusUsuario;
 import com.example.demo.entity.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 
@@ -44,13 +45,17 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
-    public Usuario updateUserById(Usuario usuario, String id) {
+    public Usuario updateUserById(String id) {
         logger.info("Consume service updateUserById");
         LocalDateTime now = LocalDateTime.now();
         try {
             Optional<Usuario> consult = usuarioRepository.findById(id);
             Usuario process =  consult.get();
-            process.setEstatusUsuario(usuario.getEstatusUsuario());
+            if (process.getEstatusUsuario().getId() == 1){
+                process.setEstatusUsuario(new EstatusUsuario(2, "invalido"));
+            } else {
+                process.setEstatusUsuario(new EstatusUsuario(1, "valido"));
+            }
             process.setUpdate(now);
             usuarioRepository.save(process);
             return process;

@@ -6,7 +6,7 @@ public interface IUsuarioService {
 
     Usuario createUser(Usuario usuario);
     Usuario getUserById(String id);
-    Usuario updateUserById(Usuario usuario, String id);
+    Usuario updateUserById(String id);
     Usuario getUserByIdusuario(String idusuario);
 
 }

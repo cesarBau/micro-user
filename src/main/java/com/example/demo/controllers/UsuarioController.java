@@ -60,8 +60,8 @@ public class UsuarioController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Usuario updateUserById(@PathVariable String id, @RequestBody Usuario usuario){
-        return iusuarioService.updateUserById(usuario, id);
+    public Usuario updateUserById(@PathVariable String id){
+        return iusuarioService.updateUserById(id);
     }
     
 }
