@@ -54,4 +54,32 @@ public class ApellidoService implements IApellidoService {
         }
     }
 
+    @Override
+    public void deleteApellido(Integer id) {
+        logger.info("Consume service deleteApellido");
+        try {
+            Optional<Apellido> consult = apellidoRepository.findById(id);
+            Integer match = consult.get().getId();
+            apellidoRepository.deleteById(match);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "lastname not found", e);
+        }
+    }
+
+    @Override
+    public Apellido updatApellido(Integer id, Apellido entity) {
+        logger.info("Consume service updatApellido");
+        try {
+            Optional<Apellido> consult = apellidoRepository.findById(id);
+            Apellido match = consult.get();
+            match.setApellido(entity.getApellido());
+            match.setSegundoApellido(entity.getSegundoApellido());
+            return apellidoRepository.save(match);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "lastname not found", e);
+        }
+    }
+
 }

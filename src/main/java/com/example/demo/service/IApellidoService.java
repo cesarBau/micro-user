@@ -9,5 +9,7 @@ public interface IApellidoService {
     Apellido creatApellido(Apellido apellido);
     Apellido getApellidoById(Integer id);
     List<Apellido> getApellidoByApellido(String apellido);
+    Apellido updatApellido(Integer id, Apellido entity);
+    void deleteApellido(Integer id);
 
 }
