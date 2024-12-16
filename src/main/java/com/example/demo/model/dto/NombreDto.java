@@ -12,17 +12,19 @@ public class NombreDto {
     private String segundoNombre;
     @JsonProperty("usuario_id")
     private String idUsuario;
-    private List<ApellidoDto> apellido;
+    private List<ObjApellidoDto> apellido;
+    private String message;
 
     public NombreDto() {
     }
 
-    public NombreDto(Integer id, String nombre, String segundoNombre, String idUsuario, List<ApellidoDto> apellido) {
+    public NombreDto(Integer id, String nombre, String segundoNombre, String idUsuario, List<ObjApellidoDto> apellido) {
         this.id = id;
         this.nombre = nombre;
         this.segundoNombre = segundoNombre;
         this.idUsuario = idUsuario;
         this.apellido = apellido;
+        this.message = "success";
     }
 
     public Integer getId() {
@@ -57,12 +59,20 @@ public class NombreDto {
         this.idUsuario = idUsuario;
     }
 
-    public List<ApellidoDto> getApellido() {
+    public List<ObjApellidoDto> getApellido() {
         return apellido;
     }
 
-    public void setApellido(List<ApellidoDto> apellido) {
+    public void setApellido(List<ObjApellidoDto> apellido) {
         this.apellido = apellido;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

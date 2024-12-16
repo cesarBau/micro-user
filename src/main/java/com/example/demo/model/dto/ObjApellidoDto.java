@@ -2,26 +2,21 @@ package com.example.demo.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ApellidoDto {
+public class ObjApellidoDto {
 
     private Integer id;
     @JsonProperty("apellido_paterno")
     private String apellidoPaterno;
     @JsonProperty("apellido_materno")
     private String apellidoMaterno;
-    private String message;
-    @JsonProperty("nombre_id")
-    private Integer nombreId;
 
-    public ApellidoDto() {
+    public ObjApellidoDto() {
     }
 
-    public ApellidoDto(Integer id, String apellidoPaterno, String apellidoMaterno, Integer nombreId) {
+    public ObjApellidoDto(Integer id, String apellidoPaterno, String apellidoMaterno) {
         this.id = id;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.message = "success";
-        this.nombreId = nombreId;
     }
 
     public Integer getId() {
@@ -46,22 +41,6 @@ public class ApellidoDto {
 
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Integer getNombreId() {
-        return nombreId;
-    }
-
-    public void setNombreId(Integer nombreId) {
-        this.nombreId = nombreId;
     }
 
 }

@@ -1,10 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.entity.Apellido;
 import com.example.demo.repository.ApellidoRepository;
@@ -22,21 +26,32 @@ public class ApellidoService implements IApellidoService {
 
     @Override
     public Apellido creatApellido(Apellido apellido) {
-        // TODO Auto-generated method stub
-        return null;
+        logger.info("Consume service creatApellido");
+        return apellidoRepository.save(apellido);
     }
 
     @Override
     public List<Apellido> getApellidoByApellido(String apellido) {
         logger.info("Consume service getApellidoByApellido");
-        // TODO Auto-generated method stub
-        return null;
+        List<Apellido> consult = apellidoRepository.getByApellido(apellido);
+        if (!consult.isEmpty()) {
+            return consult;
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "lastname not found", null);
+        }
     }
 
     @Override
     public Apellido getApellidoById(Integer id) {
         logger.info("Consume service getApellidoById");
-        return apellidoRepository.getReferenceById(id);
+        try {
+            Optional<Apellido> consult = apellidoRepository.findById(id);
+            return consult.get();
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "lastname not found", e);
+        }
     }
 
 }

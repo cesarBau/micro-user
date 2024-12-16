@@ -1,5 +1,8 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +36,22 @@ public class ApellidoController {
     public ApellidoDto getApellidoById(@PathVariable Integer id) {
         logger.info("Consume controller getApellidoById");
         Apellido consult = iApellidoService.getApellidoById(id);
-        ApellidoDto response = new ApellidoDto(consult.getId(), consult.getApellido(), consult.getSegundoApellido());
+        ApellidoDto response = new ApellidoDto(consult.getId(), consult.getApellido(), consult.getSegundoApellido(),
+                consult.getNombre().getId());
+        return response;
+    }
+
+    @GetMapping("/lastname/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<ApellidoDto> getByApellido(@PathVariable String name) {
+        logger.info("Consume controller getByApellido");
+        List<ApellidoDto> response = new ArrayList<>();
+        List<Apellido> consult = iApellidoService.getApellidoByApellido(name);
+        for (Apellido apellido : consult) {
+            response.add(new ApellidoDto(apellido.getId(), apellido.getApellido(), apellido.getSegundoApellido(),
+                    apellido.getNombre().getId()));
+        }
         return response;
     }
 

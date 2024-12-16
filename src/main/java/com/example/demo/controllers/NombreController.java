@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Apellido;
 import com.example.demo.entity.Nombre;
-import com.example.demo.model.dto.ApellidoDto;
 import com.example.demo.model.dto.NombreDto;
+import com.example.demo.model.dto.ObjApellidoDto;
 import com.example.demo.service.INombreService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,10 +43,10 @@ public class NombreController {
     @ResponseBody
     public NombreDto getNombre(@PathVariable Integer id) {
         logger.info("Consume controller getNombre");
-        List<ApellidoDto> apellido = new ArrayList<>();
+        List<ObjApellidoDto> apellido = new ArrayList<>();
         Nombre consult = iNombreService.getNombreById(id);
         for (Apellido nombre : consult.getApellido()) {
-            apellido.add(new ApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
+            apellido.add(new ObjApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
         }
         NombreDto response = new NombreDto(consult.getId(),
                 consult.getNombre(),
@@ -65,9 +65,9 @@ public class NombreController {
         List<Nombre> searchregistries = iNombreService.getNombreByNombre(nombre);
         if (searchregistries != null) {
             for (Nombre consult : searchregistries) {
-                List<ApellidoDto> apellido = new ArrayList<>();
+                List<ObjApellidoDto> apellido = new ArrayList<>();
                 for (Apellido search : consult.getApellido()) {
-                    apellido.add(new ApellidoDto(search.getId(), search.getApellido(), search.getSegundoApellido()));
+                    apellido.add(new ObjApellidoDto(search.getId(), search.getApellido(), search.getSegundoApellido()));
                 }
                 response.add(new NombreDto(consult.getId(),
                         consult.getNombre(),
@@ -84,11 +84,11 @@ public class NombreController {
     @ResponseBody
     public NombreDto createNombre(@RequestBody Nombre entity) {
         logger.info("Consume controller createNombre");
-        List<ApellidoDto> apellido = new ArrayList<>();
+        List<ObjApellidoDto> apellido = new ArrayList<>();
         Nombre create = iNombreService.createNombre(entity);
         if (create.getApellido() != null) {
             for (Apellido nombre : create.getApellido()) {
-                apellido.add(new ApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
+                apellido.add(new ObjApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
             }
         }
         NombreDto response = new NombreDto(create.getId(),
@@ -104,11 +104,11 @@ public class NombreController {
     @ResponseBody
     public NombreDto updateNombre(@RequestBody Nombre entity, @PathVariable Integer id) {
         logger.info("Consume controller updateNombre");
-        List<ApellidoDto> apellido = new ArrayList<>();
+        List<ObjApellidoDto> apellido = new ArrayList<>();
         Nombre create = iNombreService.updateNombre(id, entity);
         if (create.getApellido() != null) {
             for (Apellido nombre : create.getApellido()) {
-                apellido.add(new ApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
+                apellido.add(new ObjApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
             }
         }
         NombreDto response = new NombreDto(create.getId(),
