@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Apellido;
+import com.example.demo.entity.Nombre;
+import com.example.demo.model.ApellidoModel;
 import com.example.demo.model.dto.ApellidoDto;
 import com.example.demo.service.IApellidoService;
 
@@ -62,8 +64,14 @@ public class ApellidoController {
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ApellidoDto createApellido(@RequestBody Apellido entity) {
+    public ApellidoDto createApellido(@RequestBody ApellidoModel body) {
         logger.info("Consume controller createApellido");
+        Apellido entity = new Apellido();
+        Nombre entityNombre = new Nombre();
+        entityNombre.setId(body.getNombreId());
+        entity.setApellido(body.getApellidoPaterno());
+        entity.setSegundoApellido(body.getApellidoMaterno());
+        entity.setNombre(entityNombre);
         Apellido create = iApellidoService.creatApellido(entity);
         return new ApellidoDto(create.getId(), create.getApellido(), create.getSegundoApellido(),
                 create.getNombre().getId());
@@ -80,8 +88,12 @@ public class ApellidoController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
-    public ApellidoDto updateApellido(@PathVariable Integer id, @RequestBody Apellido entity) {
+    public ApellidoDto updateApellido(@PathVariable Integer id, @RequestBody ApellidoModel body) {
         logger.info("Consume controller updateApellido");
+        Apellido entity = new Apellido();
+        entity.setId(id);
+        entity.setApellido(body.getApellidoPaterno());
+        entity.setSegundoApellido(body.getApellidoMaterno());
         Apellido create = iApellidoService.updatApellido(id, entity);
         return new ApellidoDto(create.getId(), create.getApellido(), create.getSegundoApellido(),
                 create.getNombre().getId());

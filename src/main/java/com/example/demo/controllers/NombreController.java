@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Apellido;
 import com.example.demo.entity.Nombre;
+import com.example.demo.model.NombreModel;
 import com.example.demo.model.dto.NombreDto;
 import com.example.demo.model.dto.ObjApellidoDto;
 import com.example.demo.service.INombreService;
@@ -82,10 +83,14 @@ public class NombreController {
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public NombreDto createNombre(@RequestBody Nombre entity) {
+    public NombreDto createNombre(@RequestBody NombreModel entity) {
         logger.info("Consume controller createNombre");
         List<ObjApellidoDto> apellido = new ArrayList<>();
-        Nombre create = iNombreService.createNombre(entity);
+        Nombre name = new Nombre();
+        name.setNombre(entity.getNombre());
+        name.setSegundoNombre(entity.getSegundoNombre());
+        name.setUsuario(entity.getUsuarioId());
+        Nombre create = iNombreService.createNombre(name);
         if (create.getApellido() != null) {
             for (Apellido nombre : create.getApellido()) {
                 apellido.add(new ObjApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
@@ -102,10 +107,15 @@ public class NombreController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
-    public NombreDto updateNombre(@RequestBody Nombre entity, @PathVariable Integer id) {
+    public NombreDto updateNombre(@RequestBody NombreModel entity, @PathVariable Integer id) {
         logger.info("Consume controller updateNombre");
         List<ObjApellidoDto> apellido = new ArrayList<>();
-        Nombre create = iNombreService.updateNombre(id, entity);
+        Nombre name = new Nombre();
+        name.setId(id);
+        name.setNombre(entity.getNombre());
+        name.setSegundoNombre(entity.getSegundoNombre());
+        name.setUsuario(entity.getUsuarioId());
+        Nombre create = iNombreService.updateNombre(id, name);
         if (create.getApellido() != null) {
             for (Apellido nombre : create.getApellido()) {
                 apellido.add(new ObjApellidoDto(nombre.getId(), nombre.getApellido(), nombre.getSegundoApellido()));
