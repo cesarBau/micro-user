@@ -82,4 +82,11 @@ public class ApellidoService implements IApellidoService {
         }
     }
 
+    @Override
+    public List<Apellido> getApellidoByNombre(Integer nombre) {
+        logger.info("Consume service getApellidoByNombre");
+        List<Apellido> consult = apellidoRepository.findByNombre(nombre);
+        return consult;
+    }
+
 }

@@ -11,5 +11,6 @@ public interface IApellidoService {
     List<Apellido> getApellidoByApellido(String apellido);
     Apellido updatApellido(Integer id, Apellido entity);
     void deleteApellido(Integer id);
+    List<Apellido> getApellidoByNombre(Integer nombre);
 
 }

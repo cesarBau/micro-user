@@ -99,4 +99,18 @@ public class ApellidoController {
                 create.getNombre().getId());
     }
 
+    @GetMapping("/name/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<ApellidoDto> getMethodName(@PathVariable Integer id) {
+        logger.info("Consume controller updateApellido");
+        List<Apellido> consult = iApellidoService.getApellidoByNombre(id);
+        List<ApellidoDto> response = new ArrayList<>();
+        for (Apellido apellido : consult) {
+            response.add(new ApellidoDto(apellido.getId(), apellido.getApellido(), apellido.getSegundoApellido(),
+                    apellido.getNombre().getId()));
+        }
+        return response;
+    }
+
 }
